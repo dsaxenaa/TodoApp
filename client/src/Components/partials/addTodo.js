@@ -20,7 +20,6 @@ export const AddTodo = ({setRefresh}) => {
         const result = await createTodo({desc:todo})
         if(result.data.statusCode===200){
             setTodo("")
-            console.log("i came")
             setRefresh(new Date())
             toast("Todo Added")
             

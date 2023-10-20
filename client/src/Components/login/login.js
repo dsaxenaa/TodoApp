@@ -28,24 +28,26 @@ export const Login = () => {
         setForm({...form,[e.target.name]:e.target.value})
     }
     const handleSubmit=async ()=>{
+        console.log(form)
+        try {
         const result = await Loginn(form)
-        console.log("form",result)
+        console.log(result)
         setErrors(null)
 
         if(result.data.statusCode==200){
             localStorage.setItem("user",JSON.stringify(result.data.data))
             naviagtion("/home")
-        
         }
-         if(result.data.statusCode==201){
+        else if(result.data.statusCode==201){
             setErrors(result.data.data)
         }
-        if(result.data.statusCode==404){
+        else{
             toast(result.data.message)
+            
+        }} catch (error) {
+            console.log(error)
         }
-        if(result.data.statusCode==401){
-            toast(result.data.message)
-        }
+      
     
     }
     
@@ -58,14 +60,14 @@ export const Login = () => {
                     <h4 className='card-title'>Login Now</h4>
                     <div className='form-group'>
                         <label htmlFor='exampleInputEmal' className='form-label mt-4' >
-                            Email or Username
+                            Username
                         </label>
                         <input 
                         type='text'
                         onChange={handleChange}
                         name='username'
                         className='form-control'
-                        id="exampleInputEmail1"
+                       
                         aria-describedby='emailHelp'
                         placeholder='Enter email or username'
                         />
@@ -84,7 +86,7 @@ export const Login = () => {
                         onChange={handleChange}
                         name='password'
                         className='form-control'
-                        id="exampleInputEmail1"
+                       
                         aria-describedby='emailHelp'
                         placeholder='Enter password'
                         />

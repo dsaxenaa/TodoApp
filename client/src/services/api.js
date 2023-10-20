@@ -3,7 +3,7 @@ import { ADDTODO, DELETETODO, GETTODO, LOGIN, MARKTODO, REGISTER } from './apiCo
 import axios from 'axios'
 
 export const Loginn = async(data)=>{
-    return axios.post(LOGIN,data)
+    return await axios.post(LOGIN,data)
 }
 export const Registerr = async(data)=>{
     return axios.post(REGISTER,data)

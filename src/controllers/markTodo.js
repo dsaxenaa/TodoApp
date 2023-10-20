@@ -21,13 +21,13 @@ export const MarkTodo = async (req,res) =>{
                 }
             ])
             if(todo){
-                res.json(jsonGenerate(StatusCode.SUCCESS,"Updated",todo))
+                return res.json(jsonGenerate(StatusCode.SUCCESS,"Updated",todo))
             }else{
-                res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Something went wrong"))
+                return res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Something went wrong"))
             }
         } catch (error) {
-            res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Could not update"))          
+            return res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Could not update"))          
         }
     }
-    res.json(jsonGenerate(StatusCode.VALIDATION_ERROR,"Validation error",error.mapped()))
+    return res.json(jsonGenerate(StatusCode.VALIDATION_ERROR,"Validation error",error.mapped()))
 }

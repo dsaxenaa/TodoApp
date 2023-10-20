@@ -18,15 +18,15 @@ export const RemoveTodo = async(req,res) =>{
                 },{$pull:{todos:req.body.todo_id}
                     
                 })
-                res.json(jsonGenerate(StatusCode.SUCCESS,"Deleted",null))
+                return res.json(jsonGenerate(StatusCode.SUCCESS,"Deleted",null))
             }
             
         } catch (error) {
-            res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Something went wrong"))
+           return res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Something went wrong"))
             
         }
         
     }
-    res.json(jsonGenerate(StatusCode.VALIDATION_ERROR,"Validation error",error.mapped()))
+    return res.json(jsonGenerate(StatusCode.VALIDATION_ERROR,"Validation error",error.mapped()))
     
 }

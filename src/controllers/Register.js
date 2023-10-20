@@ -1,11 +1,11 @@
-import { JWT_TOKEN_SECRET, StatusCode } from "../utils/constants.js";
-
 import Jwt from "jsonwebtoken"
+import { StatusCode } from "../utils/constants.js";
 import User from "../models/users.js";
 import bcrypt from "bcrypt"
 import { jsonGenerate } from "../utils/helpers.js";
 import {validationResult} from "express-validator"
 
+const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET
 const Register = async (req,res) => {
     const errors = validationResult(req);
     if(errors.isEmpty()){
@@ -20,7 +20,7 @@ const Register = async (req,res) => {
         }
     ]})
         if(exists){
-            res.json(jsonGenerate(StatusCode.ALREADY_EXISTS,"Username already exists"))
+            return res.json(jsonGenerate(StatusCode.ALREADY_EXISTS,"Username already exists"))
         }
         else{
             try {
@@ -33,13 +33,13 @@ const Register = async (req,res) => {
 
                 const token = Jwt.sign({userId:result._id}, JWT_TOKEN_SECRET)
                 
-                res.json(jsonGenerate(StatusCode.SUCCESS,"Registration successful", {userId:result._id,token:token}))
+                return res.json(jsonGenerate(StatusCode.SUCCESS,"Registration successful", {userId:result._id,token:token}))
             } catch (error) {
                 console.log(error)
             }   
         }
     }
-    res.json(jsonGenerate(StatusCode.VALIDATION_ERROR,"Validation error", errors.mapped()))
+    return res.json(jsonGenerate(StatusCode.VALIDATION_ERROR,"Validation error", errors.mapped()))
 
 }
 

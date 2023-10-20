@@ -17,14 +17,14 @@ export const createTodo = async (req,res) =>{
                     {
                         $push:{todos:result}
                     })
-                    res.json(jsonGenerate(StatusCode.SUCCESS,"Todo created Successfully",result))
+                    return res.json(jsonGenerate(StatusCode.SUCCESS,"Todo created Successfully",result))
             }
             
         } catch (error) {
-            res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Something went wrong", error))
+            return res.json(jsonGenerate(StatusCode.SOMETHING_WENT_WRONG,"Something went wrong", error))
             
         }
         
     }
-    res.json(jsonGenerate(StatusCode.MISSING_FIELD,"Todo is required",error.mapped()))
+   return res.send(jsonGenerate(StatusCode.MISSING_FIELD,"Todo is required",error.mapped()))
 }
